@@ -7,14 +7,10 @@ import com.intellij.sql.dialects.base.SqlLanguageDialectBase
 import com.intellij.sql.dialects.base.TokensHelper
 import com.intellij.sql.dialects.sql92.Sql92Dialect
 
-/**
- * Tier-1 stub dialect: surfaces "DuckDB" in the SQL Dialects picker and groups under Dbms.DUCKDB.
- *
- * Lexing/parsing delegates to SQL-92 — this is the same approach Tarantool's plugin took at the
- * equivalent stage. Tier 2 (real lexer + DuckDB keyword/function tables) and Tier 3 (.bnf grammar)
- * are tracked as separate issues.
- */
-class DuckDbSqlDialect private constructor() : SqlLanguageDialectBase(ID) {
+// The sql.dialect EP resolves dialect instances via a static INSTANCE field (not newInstance()).
+// The 2-arg ctor registers DuckDB as a dialect OF SQL-92, not a standalone Language. Using the
+// 1-arg ctor caused Language("DuckDB") != Language("SQL") assertion in SqlParserDefinitionBase.
+class DuckDbSqlDialect private constructor() : SqlLanguageDialectBase(Sql92Dialect.INSTANCE, ID) {
 
     override fun getDbms(): Dbms = DuckDbDbms.INSTANCE
     override fun getDisplayName(): String = ID
