@@ -1,0 +1,15 @@
+<idea-plugin>
+    <id>com.amfaro.duckdb</id>
+    <name>DuckDB</name>
+    <vendor url="https://github.com/amfaro">amfaro</vendor>
+
+    <!-- description is injected at build time from README.md (see build.gradle.kts pluginConfiguration). -->
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.database</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <sql.dialect dbms="DUCKDB"
+                     implementationClass="com.amfaro.duckdb.dialect.DuckDbSqlDialect"/>
+    </extensions>
+</idea-plugin>
