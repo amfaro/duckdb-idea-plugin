@@ -69,7 +69,10 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
 }
 
-tasks.test { useJUnit() }
+tasks.test {
+    useJUnit()
+    workingDir = layout.buildDirectory.get().asFile
+}
 
 kotlin { jvmToolchain(17) }
 
