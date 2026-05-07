@@ -13,5 +13,9 @@
         <applicationService serviceImplementation="com.amfaro.duckdb.DuckDbPlugin" preload="true"/>
         <sql.dialect dbms="DUCKDB"
                      implementationClass="com.amfaro.duckdb.dialect.DuckDbSqlDialect"/>
+        <lang.parserDefinition language="DuckDB"
+                               implementationClass="com.amfaro.duckdb.dialect.DuckDbParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="DuckDB"
+                                       implementationClass="com.amfaro.duckdb.dialect.DuckDbSyntaxHighlighterFactory"/>
     </extensions>
 </idea-plugin>

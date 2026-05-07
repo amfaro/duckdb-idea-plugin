@@ -24,7 +24,7 @@ A vendor-adjacent dialect plugin is the established pattern for this gap. Preced
 See [open issues](https://github.com/amfaro/duckdb-idea-plugin/issues). Tiers, in dependency order:
 
 1. **Tier 1** — register `Dbms.DUCKDB` and a stub `DuckDbSqlDialect` that delegates to SQL-92 (current focus)
-2. **Tier 2** — custom JFlex lexer, DuckDB keyword set, builtin function table seeded from `pragma function_list()`
+2. **Tier 2** — custom JFlex lexer, DuckDB keyword set, builtin function table seeded from `duckdb_functions()` with `PRAGMA functions` fallback
 3. **Tier 3** — real `.bnf` grammar covering DuckDB-specific syntax (PIVOT/UNPIVOT, struct/list/map literals, EXCLUDE/REPLACE in SELECT, lambdas, ATTACH, etc.)
 4. **DataGrip integration** — `<database.dialect dbms="DUCKDB">` so generated SQL, completion, and the schema tree are DuckDB-aware
 5. **Marketplace publication**
