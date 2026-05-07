@@ -6,3 +6,17 @@ out/
 local.properties
 .kotlin/
 .intellijPlatform/
+
+# IntelliJ Platform test-runner artifacts dumped to project root
+*.aut
+*.bin
+E/
+I/
+META-INF/
+CollaborationToolsIconMappings.json
+JavaUltimateIconMappings.json
+IdeSpecificFeatures.xml
+DefaultColorSchemesManager.xml
+EvaluationFeedbackRequest.html
+Log4j-charsets.properties
+LICENSE-ClassGraph.txt

@@ -9,6 +9,8 @@
     <depends>com.intellij.database</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <!-- preload forces init before the sql.dialect EP is resolved, ensuring Dbms.DUCKDB is registered in time -->
+        <applicationService serviceImplementation="com.amfaro.duckdb.DuckDbPlugin" preload="true"/>
         <sql.dialect dbms="DUCKDB"
                      implementationClass="com.amfaro.duckdb.dialect.DuckDbSqlDialect"/>
     </extensions>
