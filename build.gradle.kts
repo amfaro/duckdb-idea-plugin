@@ -69,15 +69,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
 }
 
-tasks.test {
-    useJUnit()
-    workingDir = layout.buildDirectory.get().asFile
-}
-
-// Redirect the headless IDE process working directory so it doesn't litter the project root.
-tasks.named("buildSearchableOptions") {
-    setProperty("workingDir", layout.buildDirectory.get().asFile)
-}
+tasks.test { useJUnit() }
 
 kotlin { jvmToolchain(17) }
 
