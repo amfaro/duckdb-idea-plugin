@@ -7,11 +7,10 @@ import com.intellij.sql.dialects.base.SqlLanguageDialectBase
 import com.intellij.sql.dialects.base.TokensHelper
 import com.intellij.sql.dialects.sql92.Sql92Dialect
 
-// Must extend SqlLanguageDialectBase with a *base* dialect (2-arg ctor), not as a top-level
-// Language (1-arg ctor). The 1-arg ctor registers DuckDB as Language("DuckDB") which causes
-// SingleRootFileViewProvider to assert "Language: SQL != Language: DuckDB" at file creation.
-// Public no-arg ctor lets the sql.dialect EP instantiate via ReflectionUtil.newInstance.
-class DuckDbSqlDialect : SqlLanguageDialectBase(Sql92Dialect.INSTANCE, ID) {
+// The sql.dialect EP resolves dialect instances via a static INSTANCE field (not newInstance()).
+// The 2-arg ctor registers DuckDB as a dialect OF SQL-92, not a standalone Language. Using the
+// 1-arg ctor caused Language("DuckDB") != Language("SQL") assertion in SqlParserDefinitionBase.
+class DuckDbSqlDialect private constructor() : SqlLanguageDialectBase(Sql92Dialect.INSTANCE, ID) {
 
     override fun getDbms(): Dbms = DuckDbDbms.INSTANCE
     override fun getDisplayName(): String = ID
@@ -21,5 +20,8 @@ class DuckDbSqlDialect : SqlLanguageDialectBase(Sql92Dialect.INSTANCE, ID) {
 
     companion object {
         const val ID: String = "DuckDB"
+
+        @JvmField
+        val INSTANCE: DuckDbSqlDialect = DuckDbSqlDialect()
     }
 }
