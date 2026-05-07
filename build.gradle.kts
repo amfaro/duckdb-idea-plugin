@@ -74,6 +74,11 @@ tasks.test {
     workingDir = layout.buildDirectory.get().asFile
 }
 
+// Redirect the headless IDE process working directory so it doesn't litter the project root.
+tasks.named("buildSearchableOptions") {
+    setProperty("workingDir", layout.buildDirectory.get().asFile)
+}
+
 kotlin { jvmToolchain(17) }
 
 java {
