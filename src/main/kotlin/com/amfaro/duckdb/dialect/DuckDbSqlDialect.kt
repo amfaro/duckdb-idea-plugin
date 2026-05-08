@@ -8,15 +8,15 @@ import com.intellij.sql.dialects.base.TokensHelper
 import com.intellij.sql.dialects.sql92.Sql92Dialect
 
 // The sql.dialect EP resolves dialect instances via a static INSTANCE field (not newInstance()).
-// The 2-arg ctor registers DuckDB as a dialect OF SQL-92, not a standalone Language. Using the
-// 1-arg ctor caused Language("DuckDB") != Language("SQL") assertion in SqlParserDefinitionBase.
+// Keep DuckDB layered on SQL-92 for now: Tier 2 replaces token metadata and adds a DuckDB lexer
+// source, but Tier 3 still owns parser-definition work for a standalone DuckDB language.
 class DuckDbSqlDialect private constructor() : SqlLanguageDialectBase(Sql92Dialect.INSTANCE, ID) {
 
     override fun getDbms(): Dbms = DuckDbDbms.INSTANCE
     override fun getDisplayName(): String = ID
     override fun getSystemVariables(): Set<String> = emptySet()
     override fun isOperatorSupported(operator: IElementType): Boolean = true
-    override fun createTokensHelper(): TokensHelper = Sql92Dialect.INSTANCE.tokensHelper
+    override fun createTokensHelper(): TokensHelper = createTokensHelper(DuckDbTokens::class.java)
 
     companion object {
         const val ID: String = "DuckDB"
