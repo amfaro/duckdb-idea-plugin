@@ -76,16 +76,21 @@ grammarKit {
     jflexRelease.set("1.9.2")
 }
 
+val generatedLexerSourceRoot = layout.buildDirectory.dir("generated/sources/jflex/main")
+val generatedLexerOutputDir = generatedLexerSourceRoot.map {
+    it.dir("com/amfaro/duckdb/dialect/lexer")
+}
+
 sourceSets {
     main {
-        java.srcDir("src/main/gen")
+        java.srcDir(generatedLexerSourceRoot)
     }
 }
 
 tasks {
     named<GenerateLexerTask>("generateLexer") {
         sourceFile.set(file("src/main/grammar/DuckDb.flex"))
-        targetOutputDir.set(file("src/main/gen/com/amfaro/duckdb/dialect/lexer"))
+        targetOutputDir.set(generatedLexerOutputDir)
         purgeOldFiles.set(true)
         outputs.upToDateWhen { false }
     }
