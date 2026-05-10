@@ -13,6 +13,8 @@
         <applicationService serviceImplementation="com.amfaro.duckdb.DuckDbPlugin" preload="true"/>
         <sql.dialect dbms="DUCKDB"
                      implementationClass="com.amfaro.duckdb.dialect.DuckDbSqlDialect"/>
+        <database.dialect dbms="DUCKDB"
+                          implementationClass="com.amfaro.duckdb.dialect.DuckDbDatabaseDialect"/>
         <lang.parserDefinition language="DuckDB"
                                implementationClass="com.amfaro.duckdb.dialect.DuckDbParserDefinition"/>
         <lang.syntaxHighlighterFactory language="DuckDB"
