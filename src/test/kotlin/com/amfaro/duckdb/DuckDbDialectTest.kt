@@ -1,5 +1,7 @@
 package com.amfaro.duckdb
 
+import com.amfaro.duckdb.dbms.DuckDbDbms
+import com.amfaro.duckdb.dialect.DuckDbDatabaseDialect
 import com.amfaro.duckdb.dialect.DuckDbLexer
 import com.amfaro.duckdb.dialect.DuckDbParserDefinition
 import com.amfaro.duckdb.dialect.DuckDbReservedKeywords
@@ -14,6 +16,7 @@ import kotlin.io.path.createDirectories
 import kotlin.io.path.readText
 import kotlin.io.path.writeText
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -22,6 +25,16 @@ class DuckDbDialectTest {
     @Test
     fun `dialect ID is DuckDB`() {
         assertEquals("DuckDB", DuckDbSqlDialect.ID)
+    }
+
+    @Test
+    fun `database dialect reports DuckDB dbms and capabilities`() {
+        val dialect = DuckDbDatabaseDialect.INSTANCE
+
+        assertSame(DuckDbDbms.INSTANCE, dialect.dbms)
+        assertEquals("DuckDB", dialect.displayName)
+        assertTrue(dialect.supportsCommonTableExpression())
+        assertTrue(dialect.supportsEmptyTables())
     }
 
     @Test
